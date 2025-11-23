@@ -8,6 +8,10 @@ const {
   getuser,
   ProfilePicUpload,
   upload,
+  getUserProfile,
+  updateUsername,
+  getUserRecipes,
+  getUserBlogs,
 } = require("../controller/user");
 
 router.post("/signup", userSignup);
@@ -18,11 +22,17 @@ router.get("/signup", (req, res) => {
 router.post("/login", userLogin);
 router.get("/user/:id", getuser);
 
+// Profile routes - specific routes first, then general ones
 router.post(
   "/profile/:id/upload-profile",
-  upload.single("profileImage"), // multer needs to parse file before auth uses req.body
   verifyToken,
+  upload.single("profileImage"),
   ProfilePicUpload
 );
+
+router.get("/profile/:id/recipes", getUserRecipes);
+router.get("/profile/:id/blogs", getUserBlogs);
+router.get("/profile/:id", getUserProfile);
+router.put("/profile/username", verifyToken, updateUsername);
 
 module.exports = router;

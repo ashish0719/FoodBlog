@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const userModel = require("../models/user");
+const RecipeModel = require("../models/recipe");
+const BlogModel = require("../models/blog");
 
 const multer = require("multer");
 const path = require("path");
@@ -41,7 +43,7 @@ const userSignup = async function (req, res) {
     res.status(201).json({
       token,
       user: {
-        id: newUser._id,
+        id: newUser._id.toString(),
         email: newUser.email,
         username: newUser.username,
       },
@@ -77,7 +79,7 @@ const userLogin = async (req, res) => {
     res.status(200).json({
       token,
       user: {
-        id: existingUser._id,
+        id: existingUser._id.toString(),
         email: existingUser.email,
         username: existingUser.username,
       },
@@ -104,25 +106,129 @@ const getuser = async (req, res) => {
 
 const ProfilePicUpload = async (req, res) => {
   try {
-    const userId = req.params.id; // get from URL param
+    console.log("Upload request received for user:", req.params.id);
 
     if (!req.file) {
+      console.log("❌ No file received!");
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const profileImage = req.file.filename;
+    console.log("File uploaded:", req.file);
 
     const updatedUser = await userModel.findByIdAndUpdate(
-      userId,
-      { profileImage },
+      req.params.id,
+      { profileImage: req.file.filename },
       { new: true }
     );
 
+    console.log("User updated:", updatedUser);
+
     res.json({
       message: "Profile image updated",
-      filename: profileImage,
       user: updatedUser,
     });
+  } catch (error) {
+    console.log("❌ ERROR in upload:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const user = await userModel
+      .findById(userId)
+      .select("username email profileImage bio followers following createdAt");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Get counts
+    const recipesCount = await RecipeModel.countDocuments({ author: userId });
+    const blogsCount = await BlogModel.countDocuments({ author: userId });
+
+    const userObj = user.toObject();
+    // Ensure _id is a string
+    userObj._id = userObj._id.toString();
+    userObj.followersCount = user.followers.length;
+    userObj.followingCount = user.following.length;
+    userObj.recipesCount = recipesCount;
+    userObj.blogsCount = blogsCount;
+
+    res.status(200).json(userObj);
+  } catch (error) {
+    console.error("Error in getUserProfile:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const updateUsername = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { username } = req.body;
+
+    if (!username || username.trim().length === 0) {
+      return res.status(400).json({ message: "Username is required" });
+    }
+
+    // Check if username is already taken
+    const existingUser = await userModel.findOne({
+      username: username.trim(),
+      _id: { $ne: userId },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "Username already taken" });
+    }
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { username: username.trim() },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Username updated successfully",
+      user: {
+        id: updatedUser._id,
+        username: updatedUser.username,
+        email: updatedUser.email,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getUserRecipes = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const recipes = await RecipeModel.find({ author: userId })
+      .select("title coverImage createdAt likes")
+      .sort({ createdAt: -1 })
+      .limit(20);
+
+    res.status(200).json({ recipes });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getUserBlogs = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const blogs = await BlogModel.find({ author: userId })
+      .select("title image createdAt")
+      .sort({ createdAt: -1 })
+      .limit(20);
+
+    res.status(200).json({ blogs });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -134,4 +240,8 @@ module.exports = {
   getuser,
   upload,
   ProfilePicUpload,
+  getUserProfile,
+  updateUsername,
+  getUserRecipes,
+  getUserBlogs,
 };

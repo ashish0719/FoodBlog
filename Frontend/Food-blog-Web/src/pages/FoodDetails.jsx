@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Foodimage from "../assets/foodRecipe.png";
+import API_BASE_URL from "../config/api";
 
 export default function FoodDetails() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ export default function FoodDetails() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/recipe/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/recipe/${id}`);
         setRecipe(res.data);
       } catch (err) {
         console.error("Failed to fetch recipe detail", err);
@@ -29,7 +30,7 @@ export default function FoodDetails() {
         <div className="leftcontent">
           <div className="coverimages">
             <img
-              src={`http://localhost:8000/images/${recipe.coverImage}`}
+              src={`${API_BASE_URL}/images/${recipe.coverImage}`}
               alt="Food"
             />
           </div>

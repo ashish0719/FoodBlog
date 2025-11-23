@@ -6,10 +6,18 @@ import axios from "axios";
 import AddFoodRecipe from "./pages/AddFoodRecipe";
 import EditRecipe from "./pages/EditRecipe";
 import FoodDetails from "./pages/Fooddetails";
-import Profile from "./pages/profile";
+
+import MyProfile from "./pages/MyProfile";
+import UserProfile from "./pages/UserProfile";
+import BlogingCard from "./pages/blogingCard"; // Capitalized
+import Users from "./pages/Users";
+import Chat from "./pages/Chat";
+import CreateBlog from "./pages/CreateBlog";
+import BlogDetail from "./pages/BlogDetail";
+import API_BASE_URL from "./config/api";
 
 const getAllRecipes = async () => {
-  const res = await axios.get("http://localhost:8000/recipe");
+  const res = await axios.get(`${API_BASE_URL}/recipe`);
   return res.data;
 };
 
@@ -42,7 +50,13 @@ const router = createBrowserRouter([
       { path: "/addRecipe", element: <AddFoodRecipe /> },
       { path: "/EditRecipe/:id", element: <EditRecipe></EditRecipe> },
       { path: "/FoodDetails/:id", element: <FoodDetails></FoodDetails> },
-      { path: "/profile", element: <Profile /> },
+      { path: "/profile", element: <MyProfile /> },
+      { path: "/user/:id", element: <UserProfile /> },
+      { path: "/blogs", element: <BlogingCard /> },
+      { path: "/blogs/create", element: <CreateBlog /> },
+      { path: "/blogs/:id", element: <BlogDetail /> },
+      { path: "/users", element: <Users /> },
+      { path: "/chat/:userId", element: <Chat /> },
     ],
   },
 ]);

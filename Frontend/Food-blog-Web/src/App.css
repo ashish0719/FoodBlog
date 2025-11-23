@@ -7,29 +7,40 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* Global header styles - Navbar component uses inline styles that override these */
+/* Updated to prevent layout shifts */
 header {
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 1px 0 5px rgba(0, 0, 0, 0.2);
-  position: fixed;
+  position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
   background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: auto; /* Allow height to be determined by content */
 }
 
 header ul {
-  width: 40%;
-  height: 40px;
+  width: auto; /* Changed from fixed 40% to auto */
+  height: auto; /* Changed from fixed 40px to auto */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 header ul li {
   list-style: none;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
 li a {
@@ -62,8 +73,8 @@ section {
   display: flex;
   justify-content: center; /* center the wrapper */
   align-items: center;
-  margin-top: 6rem;
-  gap: 10rem;
+  margin-top: 2rem;
+  gap: 30rem;
   position: relative;
 
   height: 50vh;
@@ -81,6 +92,7 @@ section {
 
 .home .left h1 {
   margin-bottom: 1rem;
+  margin-left: 15px;
 }
 
 .home button {
@@ -88,6 +100,7 @@ section {
   border: none;
   background-color: #213547;
   width: 200px;
+  margin-left: 15px;
   padding: 0.5rem;
   border-radius: 0;
 }
@@ -99,6 +112,7 @@ section {
 
 .home .left h5 {
   margin: 2rem 0;
+  margin-left: 15px;
 }
 
 .bg svg {
@@ -172,7 +186,7 @@ section {
 }
 
 .comment-form button {
-  background: #4caf50;
+  background: #5d90ee;
   border: none;
   color: white;
   font-weight: 600;
@@ -183,7 +197,7 @@ section {
 }
 
 .comment-form button:disabled {
-  background: #a5d6a7;
+  background: #6ac0f1;
   cursor: not-allowed;
 }
 
@@ -581,4 +595,175 @@ h3 {
 
 .upload-button:hover {
   background-color: #1e7e34;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #bee4fa;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+.blog-page {
+  padding: 30px 20px 40px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e2ebff, #f8f9ff);
+  font-family: "Inter", sans-serif;
+  color: #1a1a1a;
+}
+
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.blog-heading {
+  font-size: 2.5rem;
+  text-align: center;
+  flex: 1;
+  margin: 0;
+  color: #111827;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+}
+
+.create-blog-btn {
+  padding: 12px 24px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.create-blog-btn:hover {
+  background: #0f5cab;
+  transform: translateY(-2px);
+}
+
+.blog-loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.blog-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-image {
+  transform: scale(1.07);
+}
+
+.blog-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.blog-text {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.blog-author p {
+  margin: 0;
+}
+
+.blog-date {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.blog-tags .tag {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  color: #1976d2;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.blog-tags .tag:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-heading {
+    font-size: 2rem;
+  }
+  .blog-image {
+    height: 150px;
+  }
 }

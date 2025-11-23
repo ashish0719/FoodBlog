@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 export default function Forms({ setIsOpen, setToken, setUser }) {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function Forms({ setIsOpen, setToken, setUser }) {
 
     try {
       const res = await axios.post(
-        `http://localhost:8000/${endpoint}`,
+        `${API_BASE_URL}/${endpoint}`,
         payload
       );
       const token = res.data.token;

@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./AddFoodRecipe.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 export default function EditRecipe() {
   const [ingredients, setIngredients] = useState([""]);
@@ -15,7 +16,7 @@ export default function EditRecipe() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/recipe/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/recipe/${id}`);
         const res = response.data;
 
         setRecipeData(res);
@@ -83,7 +84,7 @@ export default function EditRecipe() {
     formData.append("category", recipeData.category || "");
 
     try {
-      await axios.put(`http://localhost:8000/recipe/${id}`, formData, {
+      await axios.put(`${API_BASE_URL}/recipe/${id}`, formData, {
         headers: {
           authorization: "bearer " + token,
           // Don't manually set 'Content-Type' here for FormData

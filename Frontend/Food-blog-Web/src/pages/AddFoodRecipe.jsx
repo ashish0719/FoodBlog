@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./AddFoodRecipe.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 export default function AddFoodRecipe() {
   const [ingredients, setIngredients] = useState([""]);
@@ -66,7 +67,7 @@ export default function AddFoodRecipe() {
     formData.append("category", recipeData.category || "");
 
     try {
-      await axios.post("http://localhost:8000/recipe", formData, {
+      await axios.post(`${API_BASE_URL}/recipe`, formData, {
         headers: {
           authorization: "bearer " + localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",

@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaRegHeart, FaHeart, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 
 // RecipeLike Component
 const RecipeLike = ({
@@ -22,7 +23,7 @@ const RecipeLike = ({
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/recipe/${recipeId}/like`, {
+      const res = await fetch(`${API_BASE_URL}/recipe/${recipeId}/like`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -65,7 +66,7 @@ const CommentsSection = ({ recipeId, token, refreshRecipes }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/recipe/${recipeId}`);
+        const res = await axios.get(`${API_BASE_URL}/recipe/${recipeId}`);
         setComments(res.data.comments || []);
       } catch (err) {
         console.error("Failed to fetch comments", err);
@@ -80,7 +81,7 @@ const CommentsSection = ({ recipeId, token, refreshRecipes }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/recipe/${recipeId}/comment`,
+        `${API_BASE_URL}/recipe/${recipeId}/comment`,
         {
           method: "POST",
           headers: {
@@ -172,7 +173,7 @@ export default function Recipeitems() {
 
   const fetchRecipes = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/recipe");
+      const res = await axios.get(`${API_BASE_URL}/recipe`);
       setAllRecipes(res.data);
     } catch (err) {
       console.error("Error fetching recipes", err);
@@ -190,7 +191,7 @@ export default function Recipeitems() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:8000/recipe/${id}`);
+      await axios.delete(`${API_BASE_URL}/recipe/${id}`);
       await fetchRecipes(); // refresh after delete
     } catch (error) {
       console.error("Error deleting recipe:", error);
@@ -212,7 +213,7 @@ export default function Recipeitems() {
         return (
           <div key={index} className="card" style={{ cursor: "pointer" }}>
             <img
-              src={`http://localhost:8000/images/${item.coverImage}`}
+              src={`${API_BASE_URL}/images/${item.coverImage}`}
               width="120px"
               height="100px"
               alt={item.title}
@@ -225,7 +226,6 @@ export default function Recipeitems() {
                 className="icons"
                 style={{ display: "flex", gap: "15px", alignItems: "center" }}
               >
-                <BsFillStopwatchFill />
                 <RecipeLike
                   recipeId={item._id}
                   initialLikes={item.likes.length}

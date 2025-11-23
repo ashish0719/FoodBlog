@@ -1,74 +1,9 @@
-// import React, { useEffect, useState } from "react";
-// import Modal from "./Modal";
-// import InputForm from "./Forms"; // Make sure your file is named Forms.jsx
-
-// import { NavLink, useNavigate } from "react-router-dom";
-
-// export default function Navbar() {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const [token, setToken] = useState(localStorage.getItem("token"));
-//   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-//   const [isLogin, setIsLogin] = useState(!token);
-
-//   useEffect(() => {
-//     setIsLogin(!token);
-//   }, [token]);
-
-//   const navigate = useNavigate();
-//   const checkLogin = () => {
-//     if (token) {
-//       localStorage.removeItem("token");
-//       localStorage.removeItem("user");
-//       setToken(null); // 🧼 Clear token state
-//       setUser(null); // 🧼 Clear user state
-//       setIsLogin(true);
-//       navigate("/"); // 🚀 Redirect to home after logout
-//     } else {
-//       setIsOpen(true);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <header>
-//         <h2>Food Blog</h2>
-//         <ul>
-//           <li>
-//             <NavLink to="/">Home</NavLink>
-//           </li>
-//           <li onClick={() => isLogin && setIsOpen(true)}>
-//             <NavLink to={!isLogin ? "/myRecipe" : "/"}>My Recipe</NavLink>
-//           </li>
-//           <li onClick={() => isLogin && setIsOpen(true)}>
-//             <NavLink to={!isLogin ? "/favRecipe" : "/"}>Favourites</NavLink>
-//           </li>
-//           <li onClick={checkLogin}>
-//             <p className="login">
-//               {isLogin ? "Login" : "Logout"}
-//               {user?.email ? ` (${user.username})` : ""}
-//             </p>
-//           </li>
-//         </ul>
-//       </header>
-//       {isOpen && (
-//         <Modal onClose={() => setIsOpen(false)}>
-//           <InputForm
-//             setIsOpen={() => setIsOpen(false)}
-//             setToken={setToken}
-//             setUser={setUser}
-//           />
-//         </Modal>
-//       )}
-//     </>
-//   );
-// }
-
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import InputForm from "./Forms";
 import { NavLink, useNavigate } from "react-router-dom";
 import ProfileIcon from "./ProfileIcon";
-import ProfileDropdown from "./ProfileDropdown";
+import CircularFloatingMenu from "./CircularFloatingMenu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,13 +14,25 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
+  // Update login state when token changes
   useEffect(() => {
     setIsLogin(!token);
   }, [token]);
 
+  // Auto-update user when storage changes (e.g. image upload)
+  useEffect(() => {
+    const updateUser = () => {
+      const updatedUser = JSON.parse(localStorage.getItem("user"));
+      setUser(updatedUser);
+    };
+    window.addEventListener("storage", updateUser);
+    return () => window.removeEventListener("storage", updateUser);
+  }, []);
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
     setToken(null);
     setUser(null);
     setIsLogin(true);
@@ -93,14 +40,11 @@ export default function Navbar() {
     navigate("/");
   };
 
-  const handleLoginClick = () => {
-    setIsOpen(true);
-  };
-
   return (
     <>
       <header style={styles.header}>
-        <h2>Food Blog</h2>
+        <h2 style={styles.logo}>The Indian Bawarchi</h2>
+
         <ul style={styles.navList}>
           <li>
             <NavLink
@@ -112,6 +56,7 @@ export default function Navbar() {
               Home
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to={isLogin ? "/" : "/myRecipe"}
@@ -123,6 +68,7 @@ export default function Navbar() {
               My Recipe
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to={isLogin ? "/" : "/favRecipe"}
@@ -135,25 +81,51 @@ export default function Navbar() {
             </NavLink>
           </li>
 
-          <li style={{ position: "relative" }}>
+          <li>
+            <NavLink
+              to="/blogs"
+              style={({ isActive }) =>
+                isActive ? styles.activeLink : styles.navLink
+              }
+            >
+              Blogs
+            </NavLink>
+          </li>
+
+          {/* Only show "Users" when logged in */}
+          {!isLogin && (
+            <li>
+              <NavLink
+                to="/users"
+                style={({ isActive }) =>
+                  isActive ? styles.activeLink : styles.navLink
+                }
+              >
+                Users
+              </NavLink>
+            </li>
+          )}
+
+          {/* Profile Icon + Circular Floating Menu */}
+          <li style={{ position: "relative", overflow: "visible" }}>
             <ProfileIcon
               user={user}
-              onClick={() => setDropdownOpen((open) => !open)}
+              onClick={() => setDropdownOpen((o) => !o)}
             />
-            {dropdownOpen && (
-              <ProfileDropdown
-                user={user}
-                isLogin={isLogin}
-                onLogout={logout}
-                onLoginClick={handleLoginClick}
-                onClose={() => setDropdownOpen(false)}
-              />
-            )}
-            <h4>{user.username}</h4>
+
+            <CircularFloatingMenu
+              isOpen={dropdownOpen}
+              user={user}
+              isLogin={isLogin}
+              onLogout={logout}
+              onLoginClick={() => setIsOpen(true)}
+              onClose={() => setDropdownOpen(false)}
+            />
           </li>
         </ul>
       </header>
 
+      {/* LOGIN MODAL */}
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>
           <InputForm
@@ -174,7 +146,20 @@ const styles = {
     justifyContent: "space-between",
     padding: "1rem 2rem",
     backgroundColor: "#fff",
-    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+    overflow: "visible", // Allow menu to overflow header
+    width: "100%",
+    margin: 0,
+    boxSizing: "border-box",
+    // Override global header styles
+    height: "auto",
+  },
+  logo: {
+    fontWeight: "700",
+    fontSize: "1.5rem",
   },
   navList: {
     listStyle: "none",
@@ -183,14 +168,15 @@ const styles = {
     alignItems: "center",
     margin: 0,
     padding: 0,
+    overflow: "visible", // Allow menu to overflow
   },
   navLink: {
     textDecoration: "none",
-    color: "#333",
+    color: "#444",
     fontWeight: "500",
     paddingBottom: "3px",
     borderBottom: "3px solid transparent",
-    transition: "border-bottom-color 0.3s ease",
+    transition: "0.3s",
   },
   activeLink: {
     textDecoration: "none",
