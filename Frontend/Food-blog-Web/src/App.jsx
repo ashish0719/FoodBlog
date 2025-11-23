@@ -5,7 +5,7 @@ import MainNavigation from "./components/MainNavigation";
 import axios from "axios";
 import AddFoodRecipe from "./pages/AddFoodRecipe";
 import EditRecipe from "./pages/EditRecipe";
-import FoodDetails from "./pages/Fooddetails";
+import FoodDetails from "./pages/FoodDetails";
 
 import MyProfile from "./pages/MyProfile";
 import UserProfile from "./pages/UserProfile";
