@@ -5,6 +5,12 @@ Welcome to **The Indian Bawarchi**, a food blog website that inspires and deligh
 
 ---
 
+## Preview
+
+![Desktop View](./foodblogdesktop.png)
+
+---
+
 ## Table of Contents
 
 1. [About](#about)  
@@ -25,7 +31,7 @@ Welcome to **The Indian Bawarchi**, a food blog website that inspires and deligh
 
 ## About
 
-**The Indian Bawarchi** is a beautifully designed responsive food blog that focuses on Indian cuisine. It offers a platform to share recipes, cooking tips, food photography, and food-related stories. The website is optimized for both desktop and mobile viewing.
+**The Indian Bawarchi** is a beautifully designed responsive food blog that focuses on Indian cuisine. It offers a platform to share recipes, cooking tips, food photography, and food-related stories. The website is fully optimized for desktop and mobile viewing.
 
 ---
 
@@ -34,68 +40,55 @@ Welcome to **The Indian Bawarchi**, a food blog website that inspires and deligh
 Here are some of the key features of the website:
 
 - **Responsive Design**  
-   The blog layout adapts to different screen sizes (desktop, tablet, mobile), ensuring a seamless user experience.
+  Works flawlessly on desktop, tablet, and mobile devices.
 
 - **Homepage / Landing Page**  
-   - A welcoming hero section with high-quality food images  
-   - Introductory “About” or tagline area  
-   - Featured blog posts or latest recipes highlighted
+  - Attractive hero section  
+  - Introductory tagline  
+  - Featured or latest recipes showcased beautifully  
 
 - **Recipe / Blog Posts Section**  
-   - Individual pages for recipes / blog posts  
-   - Rich content: text, images, possibly videos  
-   - Well-structured recipe format: ingredients, method, tips  
+  - Dedicated individual recipe pages  
+  - Clean and structured layout (ingredients, steps, tips, images)  
 
 - **Search / Filter (if implemented)**  
-   - Ability to search for recipes by keywords  
-   - Filter by category, cuisine, or course (optional but very useful)
+  - Search recipes by name  
+  - Optional: Category / cuisine filters  
 
-- **Contact / About Page**  
-   - About the author / blog  
-   - Contact form or contact information for readers to reach out
+- **About / Contact Page**  
+  - Story behind the blog  
+  - Contact information or form  
 
 - **Social Media Integration**  
-   - Links or icons to share posts on social media  
-   - Author’s social media profiles
+  - Social icons and sharing options  
 
 - **SEO Optimized**  
-   - Meta titles and descriptions for better search engine visibility  
-   - Friendly URLs for blog posts
-
-- **Accessibility Features**  
-   - Semantic HTML for better accessibility  
-   - Responsive images and proper alt-text (if used)
+  - Meta tags, structured URLs, and optimized content  
 
 - **Performance Optimizations**  
-   - Lazy-loaded images (if implemented)  
-   - Optimized CSS and JS for faster load times  
+  - Fast loading  
+  - Optimized images  
+  - Smooth UI/UX  
 
 - **Deployment**  
-   - Deployed on **Vercel** for quick, scalable, and efficient hosting  
-   - Continuous deployment set up (if configured)
+  - Hosted on **Vercel** with continuous deployment  
 
 ---
 
 ## Screenshots
 
-*(Add relevant screenshots here; for example, “Desktop Homepage”, “Mobile Recipe Page”, etc.)*
+*(Add more screenshots as needed)*
 
-![Desktop View](/path/to/foodblog-desktop.png)  
-*(You can include more screenshots as needed)*
+![Desktop View](./foodblog-desktop.png)
 
 ---
 
 ## Technology Stack
 
-Here are the main technologies and frameworks used in the project:
-
-- **Frontend**: React (or Next.js / whichever you used)  
-- **Styling**: CSS / SASS / Tailwind (whatever you used)  
-- **Hosting & Deployment**: Vercel  
-- **Other Tools**:  
-  - Git + GitHub for version control  
-  - Any content management or headless CMS (if used)  
-  - Analytics, SEO tools (if implemented)  
+- **Frontend**: React  
+- **Styling**: CSS  
+- **Hosting**: Vercel  
+- **Tools**: Git, GitHub  
 
 ---
 
@@ -105,7 +98,7 @@ Follow these steps to set up the project locally:
 
 ### Prerequisites
 
-- Node.js (version …)  
+- Node.js  
 - npm or yarn  
 - Git  
 
@@ -115,5 +108,3 @@ Follow these steps to set up the project locally:
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 npm install
-# or
-yarn install
