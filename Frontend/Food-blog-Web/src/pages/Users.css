@@ -132,3 +132,125 @@
   font-size: 1.2rem;
   color: #6b7280;
 }
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES - MOBILE FIRST
+========================================= */
+
+/* Mobile (default - up to 480px) */
+@media (max-width: 480px) {
+  .users-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .users-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .users-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .user-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .user-header img,
+  .user-header .avatar-initials {
+    width: 60px;
+    height: 60px;
+    font-size: 1.1rem;
+  }
+
+  .user-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .user-info .user-email {
+    font-size: 0.8rem;
+  }
+
+  .user-bio {
+    font-size: 0.8rem;
+  }
+
+  .user-stats {
+    font-size: 0.8rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .user-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .follow-btn,
+  .chat-btn {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .users-container {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .users-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .users-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .user-card {
+    padding: 1.3rem 1.1rem;
+  }
+
+  .user-header img,
+  .user-header .avatar-initials {
+    width: 68px;
+    height: 68px;
+    font-size: 1.2rem;
+  }
+
+  .user-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .follow-btn,
+  .chat-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Desktop (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .users-container {
+    padding: 2rem 1.75rem;
+  }
+
+  .users-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.4rem;
+  }
+}
+
+/* Large Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .users-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+}

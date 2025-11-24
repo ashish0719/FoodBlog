@@ -97,4 +97,90 @@
   cursor: not-allowed;
 }
 
+/* =========================================
+   RESPONSIVE MEDIA QUERIES - MOBILE FIRST
+========================================= */
+
+/* Mobile (default - up to 480px) */
+@media (max-width: 480px) {
+  .create-blog-container {
+    padding: 20px 15px;
+  }
+
+  .create-blog-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .create-blog-form {
+    padding: 20px 15px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+
+  .form-group input[type="text"],
+  .form-group textarea {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .form-group textarea {
+    min-height: 150px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+  }
+
+  .cancel-btn,
+  .submit-btn {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .create-blog-container {
+    padding: 25px 20px;
+    max-width: 700px;
+  }
+
+  .create-blog-title {
+    font-size: 1.75rem;
+  }
+
+  .create-blog-form {
+    padding: 25px 20px;
+  }
+
+  .form-group textarea {
+    min-height: 180px;
+  }
+}
+
+/* Desktop (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .create-blog-container {
+    max-width: 850px;
+  }
+}
+
+/* Large Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .create-blog-container {
+    max-width: 900px;
+  }
+}
+
 

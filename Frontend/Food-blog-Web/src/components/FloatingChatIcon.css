@@ -177,16 +177,94 @@
   margin: 0;
 }
 
-@media (max-width: 768px) {
-  .chat-dropdown {
-    width: 300px;
-    right: -10px;
+/* =========================================
+   RESPONSIVE MEDIA QUERIES - MOBILE FIRST
+========================================= */
+
+/* Mobile (default - up to 480px) */
+@media (max-width: 480px) {
+  .floating-chat-container {
+    bottom: 20px;
+    right: 20px;
   }
-  
+
   .floating-chat-icon {
     width: 50px;
     height: 50px;
     font-size: 20px;
+  }
+
+  .chat-dropdown {
+    width: calc(100vw - 40px);
+    max-width: 320px;
+    right: 0;
+    bottom: 70px;
+    max-height: 400px;
+  }
+
+  .chat-dropdown-header {
+    padding: 12px 15px;
+  }
+
+  .chat-dropdown-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .chat-conversations {
+    max-height: 320px;
+  }
+
+  .chat-conversation-item {
+    padding: 12px 15px;
+  }
+
+  .chat-user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chat-avatar-placeholder {
+    font-size: 16px;
+  }
+
+  .chat-user-details h4 {
+    font-size: 0.9rem;
+  }
+
+  .chat-last-message {
+    font-size: 0.8rem;
+  }
+
+  .chat-unread-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .floating-chat-container {
+    bottom: 25px;
+    right: 25px;
+  }
+
+  .floating-chat-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+
+  .chat-dropdown {
+    width: 320px;
+    right: 0;
+    bottom: 80px;
+  }
+}
+
+/* Desktop (769px+) */
+@media (min-width: 769px) {
+  .chat-dropdown {
+    width: 350px;
   }
 }
 

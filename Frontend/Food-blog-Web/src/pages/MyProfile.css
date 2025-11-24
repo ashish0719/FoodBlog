@@ -347,27 +347,218 @@
   color: #666;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* =========================================
+   RESPONSIVE MEDIA QUERIES - MOBILE FIRST
+========================================= */
+
+/* Mobile (default - up to 480px) */
+@media (max-width: 480px) {
+  .my-profile-container {
+    padding: 20px 15px 30px;
+  }
+
   .profile-header-section {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 25px 20px;
+    gap: 25px;
+  }
+
+  .avatar-section {
+    width: 100%;
+  }
+
+  .avatar-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .avatar-initial {
+    font-size: 3rem;
+  }
+
+  .change-photo-btn {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .profile-info-section {
+    width: 100%;
+  }
+
+  .username-text {
+    font-size: 1.8rem;
   }
 
   .username-display-container,
   .username-edit-container {
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .edit-username-btn,
+  .save-username-btn,
+  .cancel-username-btn {
+    width: 100%;
+    max-width: 150px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .username-input {
+    width: 100%;
+    min-width: auto;
+    max-width: 250px;
+  }
+
+  .profile-bio {
+    font-size: 1rem;
+    margin: 12px 0 20px;
   }
 
   .profile-stats {
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
+    padding: 15px 0;
+    margin: 20px 0;
+  }
+
+  .stat-item {
+    min-width: 80px;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .logout-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+
+  .content-tabs {
+    padding: 8px;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tab-button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .content-grid-section {
+    padding: 20px 15px;
   }
 
   .content-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: 1fr;
     gap: 15px;
+  }
+
+  .content-image {
+    height: 160px;
+  }
+
+  .content-title {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .empty-state {
+    padding: 40px 15px;
+  }
+
+  .empty-state p {
+    font-size: 1rem;
+  }
+
+  .create-btn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .my-profile-container {
+    padding: 25px 20px 35px;
+  }
+
+  .profile-header-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 35px 30px;
+    gap: 30px;
+  }
+
+  .avatar-circle {
+    width: 140px;
+    height: 140px;
+  }
+
+  .avatar-initial {
+    font-size: 3.5rem;
+  }
+
+  .username-text {
+    font-size: 2.2rem;
+  }
+
+  .profile-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .content-image {
+    height: 180px;
+  }
+}
+
+/* Desktop (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .my-profile-container {
+    padding: 30px 25px 40px;
+  }
+
+  .profile-header-section {
+    padding: 35px 35px;
+    gap: 35px;
+  }
+
+  .avatar-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 22px;
+  }
+}
+
+/* Large Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
   }
 }

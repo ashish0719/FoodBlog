@@ -61,3 +61,94 @@
 .button:hover {
   background-color: #0056b3;
 }
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES - MOBILE FIRST
+========================================= */
+
+/* Mobile (default - up to 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 15px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .form {
+    gap: 12px;
+  }
+
+  .input,
+  .textarea {
+    padding: 8px;
+    font-size: 0.95rem;
+  }
+
+  .textarea {
+    min-height: 60px;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+    margin-top: 15px;
+  }
+
+  .stepContainer {
+    padding: 12px;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+
+  .button {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 40px 30px;
+    max-width: 700px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .form {
+    gap: 14px;
+  }
+
+  .input,
+  .textarea {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+}
+
+/* Desktop (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 50px 40px;
+    max-width: 750px;
+  }
+}
+
+/* Large Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .container {
+    padding: 60px;
+    max-width: 800px;
+  }
+}
