@@ -30,7 +30,7 @@ export default function FoodDetails() {
         <div className="leftcontent">
           <div className="coverimages">
             <img
-              src={`${API_BASE_URL}/images/${recipe.coverImage}`}
+              src={recipe.coverImage?.startsWith("http") ? recipe.coverImage : `${API_BASE_URL}/images/${recipe.coverImage}`}
               alt="Food"
             />
           </div>

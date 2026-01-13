@@ -10,6 +10,8 @@ export default function AddFoodRecipe() {
   const [steps, setSteps] = useState([{ stepNumber: 1, instruction: "" }]);
   const [recipeData, setRecipeData] = useState({});
   const [coverImageFile, setCoverImageFile] = useState(null);
+  const [imageInputType, setImageInputType] = useState("file"); // 'file' or 'url'
+  const [coverImageUrl, setCoverImageUrl] = useState("");
   const navigate = useNavigate();
 
   const handleIngredientChange = (index, e) => {
@@ -54,10 +56,12 @@ export default function AddFoodRecipe() {
     const formData = new FormData();
     formData.append("title", recipeData.title || "");
     formData.append("description", recipeData.description || "");
-    formData.append("ingredients", JSON.stringify(ingredients));
     formData.append("steps", JSON.stringify(steps));
-    if (coverImageFile) {
+
+    if (imageInputType === "file" && coverImageFile) {
       formData.append("coverImage", coverImageFile);
+    } else if (imageInputType === "url" && coverImageUrl) {
+      formData.append("coverImage", coverImageUrl);
     }
     formData.append("mainVideo", recipeData.mainVideo || "");
     formData.append("cookTime", recipeData.cookTime || "");
@@ -142,13 +146,36 @@ export default function AddFoodRecipe() {
           + Add Step
         </button>
 
-        <input
-          type="file"
-          name="coverImage"
-          accept="image/*"
-          className={styles.input}
-          onChange={handleFileChange}
-        />
+        <div className={styles.imageInputSection}>
+          <label>Cover Image Source:</label>
+          <select
+            value={imageInputType}
+            onChange={(e) => setImageInputType(e.target.value)}
+            className={styles.input}
+            style={{ marginBottom: "10px" }}
+          >
+            <option value="file">Upload File</option>
+            <option value="url">Image URL</option>
+          </select>
+
+          {imageInputType === "file" ? (
+            <input
+              type="file"
+              name="coverImage"
+              accept="image/*"
+              className={styles.input}
+              onChange={handleFileChange}
+            />
+          ) : (
+            <input
+              type="text"
+              placeholder="Paste Image URL"
+              className={styles.input}
+              value={coverImageUrl}
+              onChange={(e) => setCoverImageUrl(e.target.value)}
+            />
+          )}
+        </div>
         <input
           name="mainVideo"
           placeholder="Main Video URL"

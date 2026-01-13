@@ -71,7 +71,10 @@ const addRecipes = async function (req, res) {
     const ingredients = JSON.parse(ingredientsString);
     const steps = JSON.parse(stepsString);
 
-    const coverImage = req.file ? req.file.filename : "";
+    let coverImage = req.file ? req.file.filename : "";
+    if (!coverImage && req.body.coverImage) {
+      coverImage = req.body.coverImage;
+    }
 
     const newRecipe = await RecipeModel.create({
       title,
@@ -115,6 +118,8 @@ const editRecipes = async function (req, res) {
     // Update coverImage if file uploaded
     if (req.file) {
       updateData.coverImage = req.file.filename;
+    } else if (req.body.coverImage) {
+      updateData.coverImage = req.body.coverImage;
     }
 
     const updatedRecipe = await RecipeModel.findByIdAndUpdate(id, updateData, {

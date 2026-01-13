@@ -265,7 +265,7 @@ export default function MyProfile() {
                     >
                       {recipe.coverImage && (
                         <img
-                          src={`${API_BASE_URL}/images/${recipe.coverImage}`}
+                          src={recipe.coverImage?.startsWith("http") ? recipe.coverImage : `${API_BASE_URL}/images/${recipe.coverImage}`}
                           alt={recipe.title}
                           className="content-image"
                         />

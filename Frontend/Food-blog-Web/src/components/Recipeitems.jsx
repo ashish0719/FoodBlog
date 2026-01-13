@@ -213,7 +213,7 @@ export default function Recipeitems() {
         return (
           <div key={index} className="card" style={{ cursor: "pointer" }}>
             <img
-              src={`${API_BASE_URL}/images/${item.coverImage}`}
+              src={item.coverImage?.startsWith("http") ? item.coverImage : `${API_BASE_URL}/images/${item.coverImage}`}
               width="120px"
               height="100px"
               alt={item.title}

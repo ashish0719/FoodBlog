@@ -47,7 +47,7 @@ export default function EnhancedProfile() {
 
     console.log("Loading profile for userId:", profileUserId);
     fetchUserProfile();
-    
+
     // Load tab-specific data
     if (activeTab === "followers") fetchFollowers();
     if (activeTab === "following") fetchFollowing();
@@ -561,7 +561,7 @@ function ProfileTab({
                 >
                   {recipe.coverImage && (
                     <img
-                      src={`${API_BASE_URL}/images/${recipe.coverImage}`}
+                      src={recipe.coverImage?.startsWith("http") ? recipe.coverImage : `${API_BASE_URL}/images/${recipe.coverImage}`}
                       alt={recipe.title}
                       style={{ width: "100%", height: "150px", objectFit: "cover" }}
                     />
@@ -692,7 +692,11 @@ function ContentTab({ items, type, onItemClick }) {
             >
               {(item.coverImage || item.image) && (
                 <img
-                  src={`${API_BASE_URL}/images/${item.coverImage || item.image}`}
+                  src={
+                    (item.coverImage || item.image)?.startsWith("http")
+                      ? item.coverImage || item.image
+                      : `${API_BASE_URL}/images/${item.coverImage || item.image}`
+                  }
                   alt={item.title}
                   style={{ width: "100%", height: "150px", objectFit: "cover" }}
                 />
