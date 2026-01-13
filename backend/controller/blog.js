@@ -16,10 +16,15 @@ const createBlog = async function (req, res) {
       }
     }
 
+    let image = req.file ? req.file.filename : "";
+    if (!image && req.body.image) {
+      image = req.body.image;
+    }
+
     const blog = new BlogModel({
       title,
       content,
-      image: req.file ? req.file.filename : "",
+      image,
       author: userId,
       tags: tagsArray,
     });

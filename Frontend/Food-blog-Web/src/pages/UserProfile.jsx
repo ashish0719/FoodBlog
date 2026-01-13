@@ -181,7 +181,7 @@ export default function UserProfile() {
                     >
                       {blog.image && (
                         <img
-                          src={`${API_BASE_URL}/images/${blog.image}`}
+                          src={blog.image?.startsWith("http") ? blog.image : `${API_BASE_URL}/images/${blog.image}`}
                           alt={blog.title}
                           className="content-image"
                         />

@@ -44,7 +44,7 @@ export default function BlogDetail() {
       <article className="blog-detail">
         {blog.image && (
           <div className="blog-detail-image">
-            <img src={`${API_BASE_URL}/images/${blog.image}`} alt={blog.title} />
+            <img src={blog.image?.startsWith("http") ? blog.image : `${API_BASE_URL}/images/${blog.image}`} alt={blog.title} />
           </div>
         )}
         <div className="blog-detail-content">

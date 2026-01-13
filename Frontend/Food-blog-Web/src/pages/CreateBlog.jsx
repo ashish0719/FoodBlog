@@ -9,6 +9,8 @@ export default function CreateBlog() {
   const [content, setContent] = useState("");
   const [tags, setTags] = useState("");
   const [image, setImage] = useState(null);
+  const [imageInputType, setImageInputType] = useState("file"); // 'file' or 'url'
+  const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -30,9 +32,11 @@ export default function CreateBlog() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("tags", tags);
-    if (image) {
+    // formData.append("tags", tags); // Removed duplicate
+    if (imageInputType === "file" && image) {
       formData.append("image", image);
+    } else if (imageInputType === "url" && imageUrl) {
+      formData.append("image", imageUrl);
     }
 
     try {
@@ -91,13 +95,32 @@ export default function CreateBlog() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="image">Cover Image</label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
+          <label htmlFor="image">Cover Image Source</label>
+          <select
+            value={imageInputType}
+            onChange={(e) => setImageInputType(e.target.value)}
+            style={{ marginBottom: "10px", padding: "8px", width: "100%" }}
+          >
+            <option value="file">Upload File</option>
+            <option value="url">Image URL</option>
+          </select>
+
+          {imageInputType === "file" ? (
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          ) : (
+            <input
+              type="text"
+              placeholder="Paste Image URL"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              style={{ padding: "8px", width: "100%" }}
+            />
+          )}
         </div>
 
         <div className="form-actions">
